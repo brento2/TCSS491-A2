@@ -478,6 +478,7 @@ function socketStart() {
   var loadButton = document.getElementById("load");
   socket.on("load", function(Sx) {
 	  var data = Sx.data;
+	  console.log(data);
 	  setState(data);
   }); 
 
