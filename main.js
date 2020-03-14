@@ -461,8 +461,10 @@ function saveFunction() {
 }
 
 function loadFunction() {
-	SOCKET.emit('load', {studentname:"Brent ONeill", statename:"status"})
+	var data = SOCKET.emit('load', {studentname:"Brent ONeill", statename:"status"})
 	console.log("Loaded");
+	console.log(data)
+	
 }
 function getState() {
 	var statuses = [];
