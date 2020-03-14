@@ -468,8 +468,10 @@ function setState(theState) {
 		for (var j = 0; j < 45; j++) {
 			BOARD[i][j].alive = theState[i][j].alive;
 			BOARD[i][j].color = theState[i][j].color;
-	
+		}
+	}
 }
+
 function socketStart() {  
   var socket = io.connect("http://24.16.255.56:8888"); 
   var save = document.getElementById("save");
