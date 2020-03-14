@@ -6,7 +6,8 @@ var BOARD = [];
 var COLUMNS = 50;
 var ROWS  = 45;
 var SIZE = 20;
-
+//var io = require("socket.io")
+var SOCKET = io.connect("24.16.255.56:8888");
 
 function Cell(game, cellX, cellY) {
 	//console.log(cellX + " " + cellY)
@@ -105,7 +106,6 @@ ASSET_MANAGER.downloadAll(function () {
 			gameEngine.addEntity(BOARD[i][j])
 		}
 	}
-
 	/**
 	  The following code builds the structures for the game of life.
 	*/ 
@@ -449,6 +449,27 @@ ASSET_MANAGER.downloadAll(function () {
 	BOARD[35][31].setStatus(true);
 	BOARD[35][30].setStatus(true);
 	
-
+	gameEngine.state = getState();
+	console.log(gameEngine.state);
     gameEngine.start();
 });
+
+function saveFunction() {
+	socket.emit('send', {studentname:"Brent", statename:"status", data:getState()});
+	console.log("Saved")
+	
+}
+
+function loadFunction() {
+	socket.emit('load', {studentname:"Brent ONeill", statename:"status"})
+	console.log("Loaded");
+}
+function getState() {
+	var statuses = [];
+	for (var i = 0; i < 50; i++) {
+		for (var j = 0; j < 45; j++) {
+			statuses.push({alive:BOARD[i][j].alive, color:BOARD[i][j].color});
+		}
+	}
+	return statuses
+}
