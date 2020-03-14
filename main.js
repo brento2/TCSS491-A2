@@ -464,9 +464,10 @@ function getState() {
 }
 
 function setState(theState) {
+	console.log(theState)
 	for (var i = 0; i < 50; i++) {
 		for (var j = 0; j < 45; j++) {
-			console.log(theState[i][j])
+			//console.log(theState[i][j])
 			BOARD[i][j].alive = theState[i][j].alive;
 			BOARD[i][j].color = theState[i][j].color;
 		}
