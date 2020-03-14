@@ -456,15 +456,16 @@ ASSET_MANAGER.downloadAll(function () {
 function getState() {
 	var statuses = [];
 	for (var i = 0; i < 50; i++) {
+		var row = [];
 		for (var j = 0; j < 45; j++) {
-			statuses.push({alive:BOARD[i][j].alive, color:BOARD[i][j].color});
+			row.push({alive:BOARD[i][j].alive, color:BOARD[i][j].color});
 		}
+		statuses.push(row);
 	}
 	return statuses
 }
 
 function setState(theState) {
-	console.log(theState)
 	for (var i = 0; i < 50; i++) {
 		for (var j = 0; j < 45; j++) {
 			//console.log(theState[i][j])
