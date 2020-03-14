@@ -6,8 +6,6 @@ var BOARD = [];
 var COLUMNS = 50;
 var ROWS  = 45;
 var SIZE = 20;
-//var io = require("socket.io")
-var SOCKET = io.connect("24.16.255.56:8888");
 
 function Cell(game, cellX, cellY) {
 	//console.log(cellX + " " + cellY)
@@ -452,20 +450,9 @@ ASSET_MANAGER.downloadAll(function () {
 	gameEngine.state = getState();
 	console.log(gameEngine.state);
     gameEngine.start();
+	socketStart()
 });
 
-function saveFunction() {
-	SOCKET.emit('save', {studentname:"Brent", statename:"status", data:getState()});
-	console.log("Saved")
-	
-}
-
-function loadFunction() {
-	var data = SOCKET.emit('load', {studentname:"Brent ONeill", statename:"status"})
-	console.log("Loaded");
-	console.log(data)
-	
-}
 function getState() {
 	var statuses = [];
 	for (var i = 0; i < 50; i++) {
@@ -474,4 +461,30 @@ function getState() {
 		}
 	}
 	return statuses
+}
+
+function setState(theState) {
+	for (var i = 0; i < 50; i++) {
+		for (var j = 0; j < 45; j++) {
+			BOARD[i][j].alive = theState[i][j].alive;
+			BOARD[i][j].color = theState[i][j].color;
+	
+}
+function socketStart() {  
+  var socket = io.connect("http://24.16.255.56:8888"); 
+  var save = document.getElementById("save");
+  var loadButton = document.getElementById("load");
+  socket.on("load", function(Sx) {
+	  var data = Sx.data;
+	  setState(data);
+  }); 
+
+  save.onclick = function () {
+    socket.emit("save", { studentname: "Brent ONeill", statename:"life", data:getState()}); 
+  };
+
+  load.onclick = function() {
+    socket.emit("load", {studentname: "Brent ONeill", statename:"life"})
+  };
+
 }
