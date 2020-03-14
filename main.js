@@ -455,13 +455,13 @@ ASSET_MANAGER.downloadAll(function () {
 });
 
 function saveFunction() {
-	socket.emit('send', {studentname:"Brent", statename:"status", data:getState()});
+	SOCKET.emit('save', {studentname:"Brent", statename:"status", data:getState()});
 	console.log("Saved")
 	
 }
 
 function loadFunction() {
-	socket.emit('load', {studentname:"Brent ONeill", statename:"status"})
+	SOCKET.emit('load', {studentname:"Brent ONeill", statename:"status"})
 	console.log("Loaded");
 }
 function getState() {
